@@ -524,8 +524,6 @@ def compute_route(start: str, end: str, algo: str) -> Dict[str, Any]:
     algo_l = (algo or "").lower()
     if algo_l == "dfs":
         res = dfs_any_path(start, end)
-    elif algo_l in ("dijkstra", "dk", "djk"):
-        res = dijkstra_shortest_km(start, end)
     else:
         # Default: BFS shortest number of edges.
         res = bfs_shortest_path(start, end)
@@ -2227,7 +2225,7 @@ def run_streamlit_app() -> None:
             station_ids = sorted(STATE["stations"].keys())
             start = st.selectbox("Start Station", station_ids, format_func=lambda x: f"{x} - {STATE['stations'][x]['name']}")
             end = st.selectbox("End Station", station_ids, index=min(1, len(station_ids) - 1), format_func=lambda x: f"{x} - {STATE['stations'][x]['name']}")
-            algo = st.selectbox("Algorithm", ["dijkstra", "bfs", "dfs"], index=0)
+            algo = st.selectbox("Algorithm", ["bfs", "dfs"], index=0)
             do_compute = st.button("Compute Route", type="primary")
 
             if do_compute:
